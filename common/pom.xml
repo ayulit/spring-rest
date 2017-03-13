@@ -7,7 +7,26 @@
   </parent>
   <artifactId>common</artifactId>
   
+  <properties>
+  	<spring.ver>4.1.6.RELEASE</spring.ver>
+  	<hibernate.ver>4.1.9.Final</hibernate.ver>
+  </properties>
+  
   <dependencies>
+
+	<!-- Hibernate. javax.persistense.* is also here! -->
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>${hibernate.ver}</version>
+    </dependency>
+
+	<!-- JPA issues in Spring -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
+        <version>${spring.ver}</version>
+    </dependency>
 
     <!-- Spring Boot -->
     <dependency>
