@@ -12,3 +12,8 @@ buildNumber.properties
 # Eclipse
 .project
 .settings
+.classpath
+
+
+.DS_Store
+
