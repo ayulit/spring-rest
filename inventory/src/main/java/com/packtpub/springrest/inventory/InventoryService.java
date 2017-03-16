@@ -9,8 +9,8 @@ public interface InventoryService {
 	
 	public void addRoomCategory(RoomCategory category);
 	public RoomCategory getRoomCategory(long categoryId);
-	public void addRoom(Room room);
 	
+	public void addRoom(Room room);
 	/* look up a room by its identifier */
 	public Room getRoom(long roomId);
 	

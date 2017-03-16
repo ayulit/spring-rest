@@ -50,4 +50,6 @@ public class Room {
 		this.description = description;
 	}
 	
+	// TODO override toString method
+	
 }

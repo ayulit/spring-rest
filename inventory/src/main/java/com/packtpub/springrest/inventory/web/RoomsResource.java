@@ -13,13 +13,12 @@ import com.packtpub.springrest.inventory.InventoryService;
 import com.packtpub.springrest.model.Room;
 import com.packtpub.springrest.model.RoomCategory;
 
-@RestController               // we instruct Spring that RoomsResource is a controller 
+@RestController               // we instruct Spring that RoomsResource is a controller = @Component? It will be bean? 
 @RequestMapping("/rooms")     // like @Path in JAX-RS
 public class RoomsResource {  // resource like in JAX-RS : maps request whithin the code
 	
 	// TODO implement injection using @Autowired
 	private final InventoryService inventoryService;
-	
 	public RoomsResource(InventoryService inventoryService) {
 		this.inventoryService = inventoryService;
 	}

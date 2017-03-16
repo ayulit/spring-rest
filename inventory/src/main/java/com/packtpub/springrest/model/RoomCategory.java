@@ -12,7 +12,7 @@ public class RoomCategory {
     private String name;
     private String description;
 
-    // TODO implement Pricing
+    // TODO implement Pricing with getters and setters
     
     @Id
     @GeneratedValue
@@ -40,4 +40,5 @@ public class RoomCategory {
 	}
     
 
+	// TODO override toString
 }
