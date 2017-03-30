@@ -11,6 +11,7 @@
     <properties>
         <spring.ver>4.1.6.RELEASE</spring.ver>
         <hibernate.ver>4.1.9.Final</hibernate.ver>
+        <postgresql.ver>9.4-1206-jdbc42</postgresql.ver>
     </properties>
 
     <dependencies>
@@ -42,7 +43,7 @@
             <version>${spring.ver}</version>
         </dependency>
 
-       <!-- And the other stuff ... -->
+       <!-- Spring stuff ... -->
        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -53,16 +54,28 @@
             <artifactId>spring-web</artifactId>
             <version>${spring.ver}</version>
         </dependency>
+        
+        <!-- H2 Database -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>1.4.181</version>
         </dependency>
+
+        <!-- PostgreSQL Drivers -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.ver}</version>
+        </dependency>
+        
+        <!-- For some reason ... -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>
             <version>2.1</version>
         </dependency>
+        
         <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>

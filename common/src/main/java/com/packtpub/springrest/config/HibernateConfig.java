@@ -53,7 +53,7 @@ public class HibernateConfig {
         // Drop and re-create the database schema on startup,
         // -create: every time
         // -update: if ONLY model changed!
-        properties.setProperty("hibernate.hbm2ddl.auto", "create");
+        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 
         return properties;
     }
