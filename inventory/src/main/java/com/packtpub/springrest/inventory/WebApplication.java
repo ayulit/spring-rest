@@ -1,6 +1,7 @@
 package com.packtpub.springrest.inventory;
 
 import com.packtpub.springrest.RecordNotFoundException;
+import com.packtpub.springrest.inventory.config.InventoryConfig;
 import com.packtpub.springrest.model.Pricing;
 import com.packtpub.springrest.model.PricingModel;
 import com.packtpub.springrest.model.Room;
@@ -21,7 +22,7 @@ public class WebApplication {
 	public static void main(String[] args) {
 		
 		ConfigurableApplicationContext context = 
-				SpringApplication.run(new Object[]{WebApplication.class, "inventory.xml"},
+				SpringApplication.run(new Object[]{WebApplication.class, InventoryConfig.class},
 						              args);	
 
 		InventoryService inventoryService = context.getBean(InventoryService.class);
