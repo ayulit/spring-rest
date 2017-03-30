@@ -1,9 +1,9 @@
 package com.packtpub.springrest.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import javax.persistence.*;
 
 @Entity(name="room_categories")
 public class RoomCategory {
@@ -11,6 +11,7 @@ public class RoomCategory {
     private long id;
     private String name;
     private String description;
+    private Pricing pricing;
 
     // TODO implement Pricing with getters and setters
     
@@ -38,7 +39,17 @@ public class RoomCategory {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	public Pricing getPricing() {
+		return pricing;
+	}
+	public void setPricing(Pricing pricing) {
+		this.pricing = pricing;
+	}
     
-
-	// TODO override toString
+	@Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
 }

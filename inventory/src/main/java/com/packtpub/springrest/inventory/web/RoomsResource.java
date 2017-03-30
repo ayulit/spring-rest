@@ -3,6 +3,7 @@ package com.packtpub.springrest.inventory.web;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,11 +18,10 @@ import com.packtpub.springrest.model.RoomCategory;
 @RequestMapping("/rooms")     // like @Path in JAX-RS
 public class RoomsResource {  // resource like in JAX-RS : maps request whithin the code
 
-    // TODO implement injection using @Autowired
-    private final InventoryService inventoryService;
-    public RoomsResource(InventoryService inventoryService) {
-        this.inventoryService = inventoryService;
-    }
+    @Autowired
+    private InventoryService inventoryService;
+    
+    public RoomsResource() {}
 
     // retrieving a Room by identifier
     @RequestMapping(value="/{roomId}", method = RequestMethod.GET)  // like @GET in JAX-RS
