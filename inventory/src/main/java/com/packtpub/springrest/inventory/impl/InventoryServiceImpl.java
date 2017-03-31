@@ -1,21 +1,25 @@
 package com.packtpub.springrest.inventory.impl;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.packtpub.springrest.RecordNotFoundException;
 import com.packtpub.springrest.inventory.InventoryService;
 import com.packtpub.springrest.model.Pricing;
 import com.packtpub.springrest.model.PricingModel;
 import com.packtpub.springrest.model.Room;
 import com.packtpub.springrest.model.RoomCategory;
-import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * {@link InventoryService} implementation.
@@ -27,9 +31,9 @@ import java.util.List;
 public class InventoryServiceImpl implements InventoryService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryServiceImpl.class);
-
-    @Autowired
-    private SessionFactory sessionFactory;
+    
+    @PersistenceContext // for injection: JPA classics
+    private EntityManager entityManager;
 
     @Override
     public void addRoomCategory(RoomCategory category) {
@@ -37,8 +41,8 @@ public class InventoryServiceImpl implements InventoryService {
             throw new IllegalArgumentException("category already exists");
         }
         checkPricing(category);
-        sessionFactory.getCurrentSession().save(category.getPricing());
-        sessionFactory.getCurrentSession().save(category);
+        entityManager.persist(category.getPricing());
+        entityManager.persist(category);
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Added new room category {}", category);
         }
@@ -67,7 +71,7 @@ public class InventoryServiceImpl implements InventoryService {
         if (categoryId <= 0) {
             throw new IllegalArgumentException("Invalid category ID. It must be greater than zero");
         }
-        RoomCategory category = (RoomCategory) sessionFactory.getCurrentSession().get(RoomCategory.class, categoryId);
+        RoomCategory category = entityManager.find(RoomCategory.class, categoryId);
         if (category == null) {
             throw new RecordNotFoundException("No room category with ID " + categoryId);
         }
@@ -79,7 +83,7 @@ public class InventoryServiceImpl implements InventoryService {
         if (room.getId() > 0) {
             throw new IllegalArgumentException("room already exists");
         }
-        sessionFactory.getCurrentSession().save(room);
+        entityManager.merge(room);
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Added new room {}", room);
         }
@@ -90,7 +94,7 @@ public class InventoryServiceImpl implements InventoryService {
         if (roomId <= 0) {
             throw new IllegalArgumentException("Invalid room ID. It must be greater than zero");
         }
-        Room room = (Room) sessionFactory.getCurrentSession().get(Room.class, roomId);
+        Room room = entityManager.find(Room.class, roomId);
         if (room == null) {
             throw new RecordNotFoundException("No room with ID " + roomId);
         }
@@ -98,10 +102,15 @@ public class InventoryServiceImpl implements InventoryService {
     }
     @Transactional(readOnly = true)
     public List<Room> getAllRoomsWithCategory(RoomCategory category) {
-        return sessionFactory.getCurrentSession()
-                .createCriteria(Room.class)
-                .add(Restrictions.eq("roomCategory.id", category.getId()))
-                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-                .list();
+        
+        CriteriaBuilder  criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Room> criteriaQuery = criteriaBuilder.createQuery(Room.class);
+        Root<Room> rootEntry = criteriaQuery.from(Room.class);
+        CriteriaQuery<Room> all = criteriaQuery.select(rootEntry);
+
+        TypedQuery<Room> allQuery = entityManager.createQuery(all);
+
+     // TODO add filtering by 'category'
+        return allQuery.getResultList();
     }
 }

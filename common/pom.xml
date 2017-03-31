@@ -35,6 +35,13 @@
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.ver}</version>
         </dependency>
+        
+        <!-- Needed for JPA + Hibernate work: determine Hibernate PersistenceProvider -->
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-entitymanager</artifactId>
+		    <version>${hibernate.ver}</version>
+		</dependency>
 
         <!-- JPA issues in Spring -->
         <dependency>
