@@ -34,7 +34,7 @@ public class RoomsResource {  // resource like in JAX-RS : maps request whithin 
     }
 
     @RequestMapping(method=RequestMethod.GET)
-    public List<RoomDTO> getRoomsInCategory(@RequestParam("categotyId") long categoryId) {
+    public List<RoomDTO> getRoomsInCategory(@RequestParam("categoryId") long categoryId) {
         RoomCategory category = inventoryService.getRoomCategory(categoryId);
 
         return inventoryService.getAllRoomsWithCategory(category)

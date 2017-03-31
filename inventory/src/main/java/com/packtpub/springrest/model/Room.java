@@ -14,7 +14,7 @@ public class Room {
     private String description;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY) // generation ID from 1!
     public long getId() {
         return id;
     }
