@@ -10,7 +10,7 @@
   <name>REST with Spring Parent Project</name>
 
   <properties>  
-  	<spring.ver>4.2.9.RELEASE</spring.ver>
+  	<spring.ver>4.3.7.RELEASE</spring.ver>
     <junit.ver>4.12</junit.ver>
 	<java.version>1.8</java.version>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>	

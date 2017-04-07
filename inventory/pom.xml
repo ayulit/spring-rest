@@ -12,10 +12,6 @@
     <artifactId>inventory</artifactId>
     <packaging>war</packaging>
 
-    <properties>
-        <spring.ver>4.1.6.RELEASE</spring.ver>
-    </properties>
-
     <dependencies>
         
         <!-- This says that 'inventory' depends on 'common' -->
