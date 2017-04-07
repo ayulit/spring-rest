@@ -16,13 +16,12 @@
 
     <dependencies>
 
+        <!-- For some reason... -->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
-
-        <!-- For some reason... -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -76,7 +75,7 @@
             <version>${postgresql.ver}</version>
         </dependency>
         
-        <!-- For some reason ... -->
+        <!-- For using BasicDataSource in HibernateConfig -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>
