@@ -21,11 +21,7 @@ import com.packtpub.springrest.model.PricingModel;
 import com.packtpub.springrest.model.Room;
 import com.packtpub.springrest.model.RoomCategory;
 
-/**
- * {@link InventoryService} implementation.
- *
- * @author Ludovic Dewailly
- */
+
 @Component
 @Transactional
 public class InventoryServiceImpl implements InventoryService {
@@ -35,6 +31,8 @@ public class InventoryServiceImpl implements InventoryService {
     @PersistenceContext // for injection: JPA classics
     private EntityManager entityManager;
 
+    public InventoryServiceImpl() { }
+    
     @Override
     public void addRoomCategory(RoomCategory category) {
         if (category.getId() > 0) {
@@ -48,6 +46,20 @@ public class InventoryServiceImpl implements InventoryService {
         }
     }
 
+    // Not used yet.
+    @Override
+    public void updateRoomCategory(RoomCategory category) {
+        if (category.getId() == 0) {
+            throw new IllegalArgumentException("room category does not exist");
+        }
+        checkPricing(category);
+        entityManager.merge(category.getPricing());
+        entityManager.merge(category);
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Updated room category {}", category);
+        }
+    }
+    
     /**
      * Validates that the pricing object is valid.
      *
@@ -78,6 +90,35 @@ public class InventoryServiceImpl implements InventoryService {
         return category;
     }
 
+    // Not used yet.
+    @Override
+    public void deleteRoomCategory(long categoryId) {
+        if (categoryId <= 0) {
+            throw new IllegalArgumentException("Invalid category ID. It must be greater than zero");
+        }
+        RoomCategory category = getRoomCategory(categoryId);
+        entityManager.remove(category);
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Deleted room category {}", category);
+        }
+    }
+
+    // XXX Warning! Criteria API
+    // Not used yet.
+    @Override
+    public List<RoomCategory> getAllRoomCategories() {
+        CriteriaBuilder  cb = entityManager.getCriteriaBuilder();
+        
+        CriteriaQuery<RoomCategory> q = cb.createQuery(RoomCategory.class);
+        Root<RoomCategory> rootEntry = q.from(RoomCategory.class);
+        
+        CriteriaQuery<RoomCategory> all = q.select(rootEntry);
+        TypedQuery<RoomCategory> allQuery = entityManager.createQuery(all);
+        
+        return allQuery.getResultList();
+
+    }
+    
     @Override
     public void addRoom(Room room) {
         if (room.getId() > 0) {
@@ -100,6 +141,44 @@ public class InventoryServiceImpl implements InventoryService {
         }
         return room;
     }
+    
+    public void updateRoom(Room room) {
+        if (room.getId() == 0) {
+            throw new IllegalArgumentException("room does not exist");
+        }
+        entityManager.merge(room);
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Updated room {}", room);
+        }
+    }
+    
+    public void deleteRoom(long roomId) {
+        if (roomId <= 0) {
+            throw new IllegalArgumentException("Invalid room ID. It must be greater than zero");
+        }
+        Room room = getRoom(roomId);
+        entityManager.remove(room);
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Deleted room {}", room);
+        }
+    }    
+
+    // XXX Warning! Criteria API
+    // Not used yet.
+    @Transactional(readOnly = true)
+    public List<Room> getAllRooms() {
+        CriteriaBuilder  cb = entityManager.getCriteriaBuilder();
+        
+        CriteriaQuery<Room> q = cb.createQuery(Room.class);
+        Root<Room> rootEntry = q.from(Room.class);
+        
+        CriteriaQuery<Room> all = q.select(rootEntry);
+        TypedQuery<Room> allQuery = entityManager.createQuery(all);
+        
+        return allQuery.getResultList();
+    }
+    
+    // XXX Warning! Criteria API
     @Transactional(readOnly = true)
     public List<Room> getAllRoomsWithCategory(RoomCategory category) {
         
@@ -110,7 +189,7 @@ public class InventoryServiceImpl implements InventoryService {
 
         TypedQuery<Room> allQuery = entityManager.createQuery(all);
 
-     // TODO add filtering by 'category'
+        // TODO add filtering by 'category'
         return allQuery.getResultList();
     }
 }
