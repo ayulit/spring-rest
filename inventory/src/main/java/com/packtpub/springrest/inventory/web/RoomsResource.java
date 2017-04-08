@@ -54,7 +54,8 @@ public class RoomsResource {
         return createRoom(room.getName(), room.getDescription(), room.getRoomCategoryId());
     }
 
-    // What does this take?! 
+    // Not used yet
+    // Posts data from forms
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ApiResponse addRoom(String name, String description, long roomCategoryId) {
         Room room = createRoom(name, description, roomCategoryId);
@@ -83,7 +84,8 @@ public class RoomsResource {
         }
     }
 
-    // How does it work?! 
+    // Not used yet
+    // Overriding the HTTP method
     @RequestMapping(value = "/{roomId}", method = RequestMethod.POST, headers = {"X-HTTP-Method-Override=PUT"})
     public ApiResponse updateRoomAsPost(@PathVariable("roomId") long id, @RequestBody RoomDTO updatedRoom) {
         return updateRoom(id, updatedRoom);
