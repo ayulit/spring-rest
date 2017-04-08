@@ -1,5 +1,8 @@
 package com.packtpub.springrest.inventory.web;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 import com.packtpub.springrest.model.Room;
 
 /* Data Transfer Object (DTO) pattern:
@@ -10,6 +13,8 @@ public class RoomDTO {
     private String name;
     private long roomCategoryId;
     private String description;
+    
+    public RoomDTO() { }
     
     // constructor with Room parameter
     public RoomDTO(Room room) {	
@@ -33,6 +38,11 @@ public class RoomDTO {
 	public String getDescription() {
 		return description;
 	}
-
+	
+    @Override
+    public String toString() {
+        // some kind of building string from reflection of class name ...?
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
 
 }
