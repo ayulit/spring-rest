@@ -1,38 +1,28 @@
 package com.packtpub.springrest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.packtpub.springrest.config.HibernateTestConfig;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test that the Spring wiring can be loaded.
  *
  * @author Ludovic Dewailly
  */
-@RunWith(SpringJUnit4ClassRunner.class)                      // JUnit classics
-@ContextConfiguration(classes = {HibernateTestConfig.class})
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:hibernate-test.xml")
 public class WiringTest {
 
-    @PersistenceContext                  // for injection: JPA classics
-    private EntityManager entityManager;
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Test
     public void test() {
-        assertNotNull(entityManager);
+        assertNotNull(sessionFactory);
     }
-    
-    @Test
-    public void testConcatenate() {
-        assertEquals("one", "one");
-    }
-
 }

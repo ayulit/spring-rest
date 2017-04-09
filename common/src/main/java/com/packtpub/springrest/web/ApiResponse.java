@@ -1,4 +1,4 @@
-package com.packtpub.springrest.inventory.web;
+package com.packtpub.springrest.web;
 
 /**
  * Our envelope.

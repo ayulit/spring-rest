@@ -7,9 +7,10 @@ import org.springframework.context.annotation.PropertySource;
 
 import com.packtpub.springrest.config.HibernateConfig;
 
-@Configuration
-@PropertySource("classpath:conf/application.properties")
-@Import( { HibernateConfig.class} )
+// TODO enable in case of using Java class annotation style config with JPA
+//@Configuration
+//@PropertySource("classpath:conf/application.properties")
+//@Import( { HibernateConfig.class} )
 public class InventoryConfig {
     
     private static final Logger logger = Logger.getLogger(HibernateConfig.class);

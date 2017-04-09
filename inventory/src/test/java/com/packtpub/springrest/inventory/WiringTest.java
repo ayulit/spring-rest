@@ -1,15 +1,12 @@
 package com.packtpub.springrest.inventory;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.packtpub.springrest.inventory.config.InventoryTestConfig;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test that the Spring wiring can be loaded.
@@ -17,7 +14,7 @@ import com.packtpub.springrest.inventory.config.InventoryTestConfig;
  * @author Ludovic Dewailly
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {InventoryTestConfig.class})
+@ContextConfiguration("classpath:inventory-test.xml")
 public class WiringTest {
 
     @Autowired
@@ -26,10 +23,6 @@ public class WiringTest {
     @Test
     public void test() {
         assertNotNull(inventoryService);
-    }
-    
-    @Test
-    public void testConcatenateInventory() {
-        assertEquals("one", "two");
+        inventoryService.getAllRooms();
     }
 }

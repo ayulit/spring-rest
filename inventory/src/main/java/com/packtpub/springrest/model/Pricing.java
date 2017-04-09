@@ -3,7 +3,7 @@ package com.packtpub.springrest.model;
 import javax.persistence.*;
 
 /**
- * Captures pricing information for room categories.
+ * Captures pricing for room categories.
  *
  * @author Ludovic Dewailly
  */

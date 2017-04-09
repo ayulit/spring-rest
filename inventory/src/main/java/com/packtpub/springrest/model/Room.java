@@ -5,6 +5,11 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 import javax.persistence.*;
 
+/**
+ * This class represents a rental room on property management system.
+ *
+ * @author Ludovic Dewailly
+ */
 @Entity(name = "rooms")
 public class Room {
 
@@ -14,17 +19,16 @@ public class Room {
     private String description;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY) // generation ID from 1!
+    @GeneratedValue
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    void setId(long id) {
         this.id = id;
     }
 
-    /* Many Rooms to One RoomCategory */
-    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     public RoomCategory getRoomCategory() {
         return roomCategory;
     }
@@ -53,8 +57,6 @@ public class Room {
 
     @Override
     public String toString() {
-        // some kind of building string from reflection of class name ...?
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
-
 }

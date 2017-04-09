@@ -1,7 +1,7 @@
-package com.packtpub.springrest.inventory.web;
+package com.packtpub.springrest.web;
 
-import com.packtpub.springrest.inventory.web.ApiResponse.ApiError;
-import com.packtpub.springrest.inventory.web.ApiResponse.Status;
+import com.packtpub.springrest.web.ApiResponse.ApiError;
+import com.packtpub.springrest.web.ApiResponse.Status;
 
 import java.util.List;
 
