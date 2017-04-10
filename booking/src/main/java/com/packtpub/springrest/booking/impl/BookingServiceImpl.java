@@ -55,7 +55,7 @@ public class BookingServiceImpl implements BookingService {
         if (bookingId <= 0) {
             throw new IllegalArgumentException("Invalid booking ID. It must be greater than zero");
         }
-        Booking booking = (Booking) sessionFactory.getCurrentSession().get(Room.class, bookingId);
+        Booking booking = (Booking) sessionFactory.getCurrentSession().get(Booking.class, bookingId);
         if (booking == null) {
             throw new RecordNotFoundException("No booking with ID " + bookingId);
         }
