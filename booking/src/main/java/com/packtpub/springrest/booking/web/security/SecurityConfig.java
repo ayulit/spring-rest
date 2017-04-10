@@ -19,6 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    public static enum Scheme {
+        BASIC,
+        DIGEST
+    }
+
+    private final Scheme scheme = Scheme.DIGEST;
+    
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth)
 			throws Exception {
@@ -29,10 +36,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
-            .anyRequest().authenticated()
-            .and().httpBasic();
+        http.csrf().disable().authorizeRequests()
+        .anyRequest().authenticated();
 
+        switch (scheme) {
+            case BASIC:
+                http.httpBasic();
+                break;
+            case DIGEST:
+                http.exceptionHandling()
+                        .authenticationEntryPoint(digestEntryPoint())
+                        .and()
+                        .addFilter(digestAuthenticationFilter());
+                break;
+        }
 	}
+
+    @Override
+    @Bean
+    public UserDetailsService userDetailsServiceBean() throws Exception {
+        return super.userDetailsServiceBean();
+    }
+	
+    @Bean
+    public DigestAuthenticationEntryPoint digestEntryPoint() {
+        DigestAuthenticationEntryPoint entryPoint = new DigestAuthenticationEntryPoint();
+        entryPoint.setKey("rest-with-spring");
+        entryPoint.setRealmName("My Realm");
+        return entryPoint;
+    }
+
+    private DigestAuthenticationFilter digestAuthenticationFilter() throws Exception {
+        DigestAuthenticationFilter filter = new DigestAuthenticationFilter();
+        filter.setUserDetailsService(userDetailsServiceBean());
+        filter.setAuthenticationEntryPoint(digestEntryPoint());
+        return filter;
+    }
 
 }
