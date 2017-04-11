@@ -33,6 +33,7 @@ public class BookingsResource {
 
     public BookingsResource() {}
     
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{bookingId}", method = RequestMethod.GET)
     public BookingDTO getBooking(@PathVariable("bookingId") long bookingId) {
         return new BookingDTO(bookingService.getBooking(bookingId));
