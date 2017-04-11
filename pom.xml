@@ -7,6 +7,9 @@
     <packaging>pom</packaging>
     <properties>
         <junit.ver>4.12</junit.ver>
+        <spring.ver>4.1.6.RELEASE</spring.ver>
+        <springSecurity.ver>4.0.1.RELEASE</springSecurity.ver>
+        <hibernate.ver>4.1.9.Final</hibernate.ver>
     </properties> 
     <modules>
         <module>common</module>

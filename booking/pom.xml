@@ -19,18 +19,18 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${springSecurity.ver}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${springSecurity.ver}</version>
         </dependency>        
         <!-- Test Dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>4.1.6.RELEASE</version>
+            <version>${spring.ver}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
