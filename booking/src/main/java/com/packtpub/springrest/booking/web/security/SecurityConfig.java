@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         DIGEST
     }
 
-    private final Scheme scheme = Scheme.DIGEST;
+    private final Scheme scheme = Scheme.BASIC;
     
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth)
